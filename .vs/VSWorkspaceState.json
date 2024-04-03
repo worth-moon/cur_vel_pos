@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Core",
+    "\\Core\\App",
+    "\\Core\\Src",
+    "\\Drivers",
+    "\\Drivers\\AS5047P"
+  ],
+  "SelectedNode": "\\Core\\Src\\tim.c",
+  "PreviewInSolutionExplorer": false
+}
