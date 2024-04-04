@@ -128,9 +128,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		//a = MT6816_Get_AngleData();
 		//HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-		vofa_send_data(0,debug_vel_target);
-		vofa_send_data(1,motor.vel_filtered);
+		vofa_send_data(0,debug_position_target);
+		vofa_send_data(1,act);
 		vofa_sendframetail();
     /* USER CODE END WHILE */
 
