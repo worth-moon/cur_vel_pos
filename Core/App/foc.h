@@ -1,6 +1,15 @@
 #ifndef _FOC_H
 #define _FOC_H
 
+#include "svpwm.h"
+#include "utils.h"
+#include "pid.h"
+#include "user_parameters.h"
+#include "mt6816.h"
+#include "tim.h"
+#include "adc.h"
+#include "../../AS5047P/as5047p.h"
+
 #define Compare_count(a, b) (((a) >= (b)) ? ((a) - (b)) : ((b) - (a)))
 typedef enum
 {
@@ -40,10 +49,21 @@ typedef  struct
     int cnt;
 }Motor_t;
 
+typedef union 
+{  
+    uint8_t bytes[4];  
+	float floating_value;    
+}float_8bits;
+
 extern float debug_position_target;
 extern float current_count;
 extern float act;
 extern float debug_vel_target;
+
+extern Pid_Controller_t GI_D;
+extern Pid_Controller_t GI_Q;
+extern Pid_Controller_t GVEL;
+extern Pid_Controller_t GPOS;
 
 void Current_Caloffset(Current_t* pcurr);
 void Current_Get(Current_t* pcurr);

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [FOC_LAB\FOC_LAB.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image FOC_LAB\FOC_LAB.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6160001: Last Updated: Sat Apr  6 08:24:04 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6160001: Last Updated: Sat Apr  6 11:17:14 2024
 <BR><P>
 <H3>Maximum Stack Usage =        740 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -712,6 +712,7 @@ Global Symbols
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_SetTxBuffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vofa_transmit
+<LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CDC_Receive_FS
 </UL>
 
 <P><STRONG><a name="[a9]"></a>Current_Caloffset</STRONG> (Thumb, 204 bytes, Stack size 32 bytes, foc.o(.text.Current_Caloffset))
@@ -2607,7 +2608,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FOC_Run
 </UL>
 
-<P><STRONG><a name="[92]"></a>main</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, main.o(.text.main))
+<P><STRONG><a name="[92]"></a>main</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, main.o(.text.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 484 + Unknown Stack Size
 <LI>Call Chain = main &rArr; vofa_sendframetail &rArr; vofa_transmit &rArr; CDC_Transmit_FS &rArr; USBD_CDC_TransmitPacket &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
 </UL>
@@ -3413,10 +3414,11 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> usbd_cdc_if.o(.data.USBD_Interface_fops_FS)
 </UL>
-<P><STRONG><a name="[14]"></a>CDC_Receive_FS</STRONG> (Thumb, 36 bytes, Stack size 24 bytes, usbd_cdc_if.o(.text.CDC_Receive_FS))
-<BR><BR>[Stack]<UL><LI>Max Depth = 428<LI>Call Chain = CDC_Receive_FS &rArr; USBD_CDC_ReceivePacket &rArr; USBD_LL_PrepareReceive &rArr; HAL_PCD_EP_Receive &rArr; USB_EPStartXfer &rArr; USB_WritePMA
+<P><STRONG><a name="[14]"></a>CDC_Receive_FS</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, usbd_cdc_if.o(.text.CDC_Receive_FS))
+<BR><BR>[Stack]<UL><LI>Max Depth = 460<LI>Call Chain = CDC_Receive_FS &rArr; CDC_Transmit_FS &rArr; USBD_CDC_TransmitPacket &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_SetRxBuffer
+<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CDC_Transmit_FS
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_SetRxBuffer
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_ReceivePacket
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> usbd_cdc_if.o(.data.USBD_Interface_fops_FS)

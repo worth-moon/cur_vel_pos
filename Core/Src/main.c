@@ -37,6 +37,8 @@
 #include "user_parameters.h"
 #include "vofa.h"
 #include "mt6816.h"
+#include "usbd_cdc_if.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -70,6 +72,7 @@ extern Pid_Controller_t GVEL;
 extern Pid_Controller_t GPOS;
 
 float a;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -129,9 +132,9 @@ int main(void)
   while (1)
   {
 
-		vofa_send_data(0,motor.vel_filtered);
-		vofa_send_data(1,debug_vel_target);
-    vofa_send_data(2,motor.vel);
+		vofa_send_data(0,rx_val.floating_value);
+//		vofa_send_data(1,debug_vel_target);
+//    vofa_send_data(2,motor.vel);
 		vofa_sendframetail();
     /* USER CODE END WHILE */
 

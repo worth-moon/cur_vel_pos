@@ -1,3 +1,6 @@
+#ifndef _MT6816_H
+#define _MT6816_H
+
 #include <stdbool.h>	
 #include <string.h>		
 #include <stdlib.h>		
@@ -29,3 +32,8 @@ typedef struct {
 extern MT6816_Typedef mt6816;
 					
 float MT6816_Get_AngleData();
+
+
+
+
+#endif 

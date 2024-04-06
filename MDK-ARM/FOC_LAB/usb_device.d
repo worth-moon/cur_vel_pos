@@ -54,4 +54,10 @@ foc_lab/usb_device.o: ..\USB_Device\App\usb_device.c \
   ..\USB_Device\App\usbd_desc.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
-  ..\USB_Device\App\usbd_cdc_if.h
+  ..\USB_Device\App\usbd_cdc_if.h ..\Core\App\foc.h ..\Core\App\svpwm.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h ..\Core\App\utils.h \
+  ..\Core\App\pid.h ..\Core\Inc\user_parameters.h ..\Core\App\mt6816.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\Core\Inc\spi.h \
+  ..\Core\Inc\main.h ..\Core\Inc\main.h ..\Core\Inc\tim.h \
+  ..\Core\Inc\adc.h \
+  ..\Drivers\STM32G4xx_HAL_Driver\Inc\..\..\AS5047P\as5047p.h

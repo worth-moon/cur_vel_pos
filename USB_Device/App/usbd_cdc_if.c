@@ -22,7 +22,7 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-
+#include "foc.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -243,26 +243,121 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
   /* USER CODE END 5 */
 }
 
+uint8_t b;
+float_8bits rx_val;
 /**
-  * @brief  Data received over USB OUT endpoint are sent over CDC interface
-  *         through this function.
-  *
-  *         @note
-  *         This function will issue a NAK packet on any OUT packet received on
-  *         USB endpoint until exiting this function. If you exit this function
-  *         before transfer is complete on CDC interface (ie. using DMA controller)
-  *         it will result in receiving more data while previous ones are still
-  *         not sent.
-  *
-  * @param  Buf: Buffer of data to be received
-  * @param  Len: Number of data received (in bytes)
-  * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
-  */
+ * @brief   通过该函数将通过USB OUT端点接收到的数据发送至CDC接口。
+ *
+ * @note    在退出此函数之前，对于USB端点接收到的任何OUT包，本函数都将发出NAK包。如果你在CDC接口上的传输尚未完成（例如，使用DMA控制器）时就退出此函数，会导致在先前数据尚未发送完毕的情况下继续接收更多数据。
+ *
+ * @param   Buf: 待接收数据的缓冲区
+ * @param   Len: 接收数据量（以字节为单位）
+ * @retval  操作结果：若所有操作正常则返回USBD_OK，否则返回USBD_FAIL
+ */
+#include <string.h> // 引入头文件，以便使用 strcmp()
+
 static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
 {
   /* USER CODE BEGIN 6 */
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
+  CDC_Transmit_FS(Buf,*Len);  //调试用
+
+// 取值以待后续赋值操作
+  // for(b = 3; b < 7; b++)
+  // {
+  //   rx_val.bytes[6-b] = Buf[b];
+  // }
+  // rx_val.bytes[0] = Buf[0];
+  // rx_val.bytes[1] = Buf[1];
+  // rx_val.bytes[2] = Buf[2];
+  // rx_val.bytes[3] = Buf[3];
+
+  rx_val.bytes[0] = Buf[0];
+  rx_val.bytes[1] = Buf[1];
+  rx_val.bytes[2] = Buf[2];
+  rx_val.bytes[3] = Buf[3];
+	
+	// if(*Len == 8)
+	// 	b = 10;
+
+  // /*=== 解析协议 ===*/
+  // if (Buf[0] == '#' && Buf[*Len - 1] == ';')
+  // {
+    // char protocol_string[3];
+
+    // // 将 Buf[1] 和 Buf[2] 的值复制到 protocol_string 中
+    // protocol_string[0] = Buf[1];
+    // protocol_string[1] = Buf[2];
+    // protocol_string[2] = '\0'; // 添加字符串终止符
+
+    // if (strcmp(protocol_string, "CP") == 0)
+    // {
+    //   GI_Q.kp = rx_val.floating_value;
+    //   GI_D.kp = rx_val.floating_value;
+    // }
+    // else if (strcmp(protocol_string, "CI") == 0)
+    // {
+    //   // 处理 CI 协议
+    //   HandleProtocolCI();
+    // }
+    // else if (strcmp(protocol_string, "CR") == 0)
+    // {
+    //   // 处理 CR 协议
+    //   HandleProtocolCR();
+    // }
+    // else if (strcmp(protocol_string, "VP") == 0)
+    // {
+    //   // 处理 VP 协议
+    //   HandleProtocolVP();
+    // }
+    // else if (strcmp(protocol_string, "VI") == 0)
+    // {
+    //   // 处理 VI 协议
+    //   HandleProtocolVI();
+    // }
+    // else if (strcmp(protocol_string, "VR") == 0)
+    // {
+    //   // 处理 VR 协议
+    //   HandleProtocolVR();
+    // }
+    // else if (strcmp(protocol_string, "VL") == 0)
+    // {
+    //   // 处理 VL 协议
+    //   HandleProtocolVL();
+    // }
+    // else if (strcmp(protocol_string, "PT") == 0)
+    // {
+    //   // 处理 PT 协议
+    //   HandleProtocolPT();
+    // }
+    // else if (strcmp(protocol_string, "PP") == 0)
+    // {
+    //   // 处理 PP 协议
+    //   HandleProtocolPP();
+    // }
+    // else if (strcmp(protocol_string, "PI") == 0)
+    // {
+    //   // 处理 PI 协议
+    //   HandleProtocolPI();
+    // }
+    // else if (strcmp(protocol_string, "PR") == 0)
+    // {
+    //   // 处理 PR 协议
+    //   HandleProtocolPR();
+    // }
+    // else if (strcmp(protocol_string, "FL") == 0)
+    // {
+    //   // 处理 FL 协议
+    //   HandleProtocolFL();
+    // }
+    // else
+    // {
+    //   // 处理未知协议
+    //   HandleUnknownProtocol(protocol_string);
+    // }
+  //}
+
   return (USBD_OK);
   /* USER CODE END 6 */
 }
@@ -293,17 +388,15 @@ uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
 }
 
 /**
-  * @brief  CDC_TransmitCplt_FS
-  *         Data transmitted callback
-  *
-  *         @note
-  *         This function is IN transfer complete callback used to inform user that
-  *         the submitted Data is successfully sent over USB.
-  *
-  * @param  Buf: Buffer of data to be received
-  * @param  Len: Number of data received (in bytes)
-  * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
-  */
+ * @brief   CDC_TransmitCplt_FS
+ *         数据发送完成回调函数
+ *
+ * @note    该函数为IN传输完成回调，用于通知用户已成功通过USB发送提交的数据。
+ *
+ * @param   Buf: 待接收数据的缓冲区
+ * @param   Len: 接收数据量（以字节为单位）
+ * @retval  操作结果：若所有操作正常则返回USBD_OK，否则返回USBD_FAIL
+ */
 static int8_t CDC_TransmitCplt_FS(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
 {
   uint8_t result = USBD_OK;

@@ -1,13 +1,6 @@
 #include "main.h"
-#include "tim.h"
-#include "adc.h"
-#include "../../AS5047P/as5047p.h"
 #include "foc.h"
-#include "svpwm.h"
-#include "utils.h"
-#include "pid.h"
-#include "user_parameters.h"
-#include "mt6816.h"
+
 
 SVPWMTypeDef_t  SVPWM;
 MATH_vec2 V_d_q, V_alpha_beta, I_d_q, I_alpha_beta, I_a_b;
@@ -15,10 +8,7 @@ Current_t current;
 Voltage_t voltage;
 Motor_t motor;
 MATH_EMAVG_F math_emavg1;
-Pid_Controller_t GI_D;
-Pid_Controller_t GI_Q;
-Pid_Controller_t GVEL;
-Pid_Controller_t GPOS;
+
 float debug_p_d = 0.140, debug_i_d = 706.3372224;
 float debug_p_q = 0.160, debug_i_q = 706.3372224;
 float debug_target_d = 0.0, debug_target_q = 1.0;
@@ -31,6 +21,12 @@ float act,last_act;
 float debug_vel_target = 1000;
 float debug_vel_lb = 0.5f;
 float debug_vel_filter = 1.0f;//当前占比
+
+Pid_Controller_t GI_D;
+Pid_Controller_t GI_Q;
+Pid_Controller_t GVEL;
+Pid_Controller_t GPOS;
+
 void Current_Caloffset(Current_t* pcurr)
 {
     int16_t a, b, c, bus;
@@ -120,7 +116,7 @@ void FOC_Init(void)
 
     MATH_EMAVG_F_Init(&math_emavg1);
 
-    motor.FOC_Lab = 8;
+    motor.FOC_Lab = 8.0f;
 
     Pid_Init(&GI_D, debug_p_d, debug_i_d, 0, GI_D_KIS, 1.0f / GI_D_FREQUENCY, GI_D_RANGE);
     Pid_Init(&GI_Q, debug_p_q, debug_i_q, 0, GI_Q_KIS, 1.0f / GI_D_FREQUENCY, GI_Q_RANGE);

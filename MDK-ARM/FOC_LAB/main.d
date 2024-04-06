@@ -52,6 +52,14 @@ foc_lab/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Core\Src\..\App\svpwm.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h ..\Core\App\utils.h \
   ..\Core\Src\..\App\utils.h ..\Core\Src\..\App\foc.h \
-  ..\Core\Src\..\App\pid.h ..\Core\Inc\user_parameters.h \
-  ..\Core\App\vofa.h ..\Core\App\mt6816.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h
+  ..\Core\App\svpwm.h ..\Core\App\pid.h ..\Core\Inc\user_parameters.h \
+  ..\Core\App\mt6816.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  ..\Core\Src\..\App\pid.h ..\Core\App\vofa.h ..\Core\App\mt6816.h \
+  ..\USB_Device\App\usbd_cdc_if.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
+  ..\Core\App\foc.h
