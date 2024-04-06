@@ -124,8 +124,8 @@ void FOC_Init(void)
 
     Pid_Init(&GI_D, debug_p_d, debug_i_d, 0, GI_D_KIS, 1.0f / GI_D_FREQUENCY, GI_D_RANGE);
     Pid_Init(&GI_Q, debug_p_q, debug_i_q, 0, GI_Q_KIS, 1.0f / GI_D_FREQUENCY, GI_Q_RANGE);
-    Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 25000.0f, 1.0f);
-    Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 6250.0f, 3.0f);
+    //Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 25000.0f, 0.4f);
+    Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 6250.0f, 0.4f);
     //Pid_Init(&GVEL, 0.005f, 100.0f, 0, GVEL_KIS, 1.0f / 12500.0f, 3.0f);
 }
 
@@ -473,7 +473,7 @@ void current_position(void)
     voltage.Vbeta = V_alpha_beta.value[1];
 
     SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
-    PWM_Set();
+    PWM_Set();                                                                                                                                                                                                                                                                                                      
 }
 
 void PWM_Set(void)
@@ -580,7 +580,6 @@ void FOC_Run(void)
         current_position();
         break;
     case LAB_7:
-        Velocity_Closed_Loop();
         break;
     case LAB_8:
         velocity();
@@ -589,7 +588,6 @@ void FOC_Run(void)
         single_vel_cloop();
         break;
     case LAB_10:
-        cur_vel_pos();
         break;
     default:
         break;
