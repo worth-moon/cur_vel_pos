@@ -38,8 +38,6 @@ foc_lab/foc_lab.o: ..\Core\Src\foc_lab.c ..\Core\Inc\main.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_spi_ex.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim_ex.h \
-  ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart.h \
-  ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart_ex.h \
   ..\Core\Inc\adc.h ..\Core\Inc\main.h ..\Core\Inc\tim.h \
   ..\Core\Inc\user_parameters.h ..\Core\Src\..\App\foc.h \
   ..\Core\App\svpwm.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \

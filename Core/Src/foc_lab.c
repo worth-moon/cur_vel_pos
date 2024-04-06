@@ -17,37 +17,10 @@ void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
     if (hadc->Instance == ADC1)
     {
-
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
-        // Current_Get(&current);
-        // motor.mag_angle = (float)(AS5047_read(ANGLECOM) * MATH_2PI / 16384.0f);
-        // motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
-
-        // Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
-
-        // voltage.Valpha = V_alpha_beta.value[0];
-        // voltage.Vbeta = V_alpha_beta.value[1];
-
-        // I_a_b.value[0] = current.Ia;
-        // I_a_b.value[1] = current.Ib;
-        // Clarke_Run(&I_a_b, &I_alpha_beta);
-        // current.Ialpha = I_alpha_beta.value[0];
-        // current.Ibeta = I_alpha_beta.value[1];
-        // Park_Run(&I_alpha_beta, &I_d_q, motor.elec_angle);
-
-        // current.Id = I_d_q.value[0];
-        // current.Iq = I_d_q.value[1];
-
-        // SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
-        // PWM_Set();
-        //Drag_VF_Mode();
-        // Drag_IF_Mode();
-        // Voltage_Open_Loop();
-        //Current_Closed_Loop();
-        // Velocity_Closed_Loop();
+				HAL_GPIO_WritePin(CH1_GPIO_Port,CH1_Pin,1);
         FOC_Run();
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
-        // HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_9);
+				//HAL_GPIO_TogglePin(CH1_GPIO_Port,CH1_Pin);
+        HAL_GPIO_WritePin(CH1_GPIO_Port,CH1_Pin,0);
 
     }
 }

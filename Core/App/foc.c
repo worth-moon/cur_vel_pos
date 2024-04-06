@@ -116,7 +116,7 @@ void FOC_Init(void)
 
     MATH_EMAVG_F_Init(&math_emavg1);
 
-    motor.FOC_Lab = 8.0f;
+    motor.FOC_Lab = 4.0f;
 
     Pid_Init(&GI_D, debug_p_d, debug_i_d, 0, GI_D_KIS, 1.0f / GI_D_FREQUENCY, GI_D_RANGE);
     Pid_Init(&GI_Q, debug_p_q, debug_i_q, 0, GI_Q_KIS, 1.0f / GI_D_FREQUENCY, GI_Q_RANGE);
@@ -221,9 +221,10 @@ void Voltage_Open_Loop(void)
 void Current_Closed_Loop(void)
 {
     Current_Get(&current);
+		HAL_GPIO_WritePin(CH2_GPIO_Port,CH2_Pin,1);
     motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
     motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
-
+		HAL_GPIO_WritePin(CH2_GPIO_Port,CH2_Pin,0);
     I_a_b.value[0] = current.Ia;
     I_a_b.value[1] = current.Ib;
 
