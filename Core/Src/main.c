@@ -128,29 +128,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if(HAL_GPIO_ReadPin(KEY1_GPIO_Port,KEY1_Pin) == 0)
-    {
-      HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-    }
-    else if (HAL_GPIO_ReadPin(KEY2_GPIO_Port,KEY2_Pin) == 0)
-    {
-      HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
-    }
-    else if (HAL_GPIO_ReadPin(KEY3_GPIO_Port,KEY3_Pin) == 0)
-    {
-      HAL_GPIO_TogglePin(LED3_GPIO_Port,LED3_Pin);
-    }
-    else if (HAL_GPIO_ReadPin(KEY3_GPIO_Port,KEY3_Pin) == 0)
-    {
-      HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-      HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
-      HAL_GPIO_TogglePin(LED3_GPIO_Port,LED3_Pin);
-    }
 
-		//a = MT6816_Get_AngleData();
-		//HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-		vofa_send_data(0,debug_position_target);
-		vofa_send_data(1,act);
+		vofa_send_data(0,motor.vel_filtered);
+		vofa_send_data(1,debug_vel_target);
+    vofa_send_data(2,motor.vel);
 		vofa_sendframetail();
     /* USER CODE END WHILE */
 

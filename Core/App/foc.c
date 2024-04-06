@@ -120,13 +120,13 @@ void FOC_Init(void)
 
     MATH_EMAVG_F_Init(&math_emavg1);
 
-    motor.FOC_Lab = 6;
+    motor.FOC_Lab = 8;
 
     Pid_Init(&GI_D, debug_p_d, debug_i_d, 0, GI_D_KIS, 1.0f / GI_D_FREQUENCY, GI_D_RANGE);
     Pid_Init(&GI_Q, debug_p_q, debug_i_q, 0, GI_Q_KIS, 1.0f / GI_D_FREQUENCY, GI_Q_RANGE);
     //Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 25000.0f, 0.4f);
-    Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 6250.0f, 0.4f);
-    //Pid_Init(&GVEL, 0.005f, 100.0f, 0, GVEL_KIS, 1.0f / 12500.0f, 3.0f);
+    //Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 6250.0f, 0.4f);
+    Pid_Init(&GVEL, 0.005f, 100.0f, 0, GVEL_KIS, 1.0f / 12500.0f, 1.0f);
 }
 
 void align(void)
@@ -259,55 +259,6 @@ void Current_Closed_Loop(void)
     SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
     PWM_Set();
 }
-
-void velocity(void)
-{
-    static uint8_t vel_cnt = 0;
-    vel_cnt++;
-    motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
-    motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
-    static float last_angle = 10086;
-    if(last_angle - motor.mag_angle>3.14f&&last_angle!=10086)
-        current_count++;
-    if (last_angle - motor.mag_angle < -3.14f && last_angle != 10086)
-        current_count--;
- 
-    if (vel_cnt >= 5)
-    {
-        vel_cnt = 0;
-
-        last_act = act;
-        act = current_count * 6.28f + motor.mag_angle;
-        static uint32_t time,last_time;
-        last_time = time;
-        time = HAL_GetTick();
-        motor.vel = (act - last_act)/(time - last_time);
-        //Velocity_Get(&motor, 1.0f / GVEL_FREQUENCY);
-
-        math_emavg1.In = motor.vel;
-        math_emavg1.Multiplier = debug_vel_filter;
-        MATH_EMAVG_F_Run(&math_emavg1);
-        motor.vel_filtered = math_emavg1.Out;
-
-        motor.vel_ref = debug_vel_target;
-    }
-
-    voltage.Vd = 0;
-    voltage.Vq = Pid_Cal(&GVEL, motor.vel_ref, motor.vel_filtered);
-
-    V_d_q.value[0] = voltage.Vd;
-    V_d_q.value[1] = voltage.Vq;
-
-    Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
-
-
-    voltage.Valpha = V_alpha_beta.value[0];
-    voltage.Vbeta = V_alpha_beta.value[1];
-
-    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
-    PWM_Set();
-
-}
 void Velocity_Closed_Loop(void)
 {
     static uint8_t vel_cnt = 0;
@@ -331,9 +282,8 @@ void Velocity_Closed_Loop(void)
      motor.cnt = vel_cnt;
      //Frequency 5000Hz
     vel_cnt++;
-    if (vel_cnt >= 3)
+    if (vel_cnt >= 2)
     {
-
         vel_cnt = 0;
         Velocity_Get(&motor, 1.0f / GVEL_FREQUENCY);
 
@@ -364,6 +314,7 @@ void Velocity_Closed_Loop(void)
 
 }
 
+//0.005 100 6.125K
 void single_vel_cloop(void)
 {
     static uint8_t vel_cnt = 0;
@@ -518,14 +469,14 @@ void cur_vel_pos(void)
     vel_cnt++;
     pos_cnt++;
 
-    if(pos_cnt>4)
+    if(pos_cnt>=4)
     {
         pos_cnt = 0;
         act = current_count * 6.28f + motor.mag_angle;
 		debug_vel_target = Pid_Cal(&GPOS, debug_position_target, act);
     }
 
-    if(vel_cnt>2)
+    if(vel_cnt>=2)
     {
         Velocity_Get(&motor, 1.0f / 12500.0f);
 
@@ -577,15 +528,16 @@ void FOC_Run(void)
         position_max();
         break;
     case LAB_6:
-        current_position();
+        single_vel_cloop();
         break;
     case LAB_7:
+        current_position();
         break;
     case LAB_8:
-        velocity();
+        Velocity_Closed_Loop();
         break;
     case LAB_9:
-        single_vel_cloop();
+        
         break;
     case LAB_10:
         break;
