@@ -114,7 +114,26 @@ void vofa_demo(void)
 	// Call the function to send the frame tail
 	vofa_sendframetail();
 }
+static float vofa_cmd_parse(uint8_t *cmdBuf, char *arg)
+{
+    return atof(cmdBuf + strlen(arg));
+}
 
+uint8_t receive_buf[100];
+void vofa_Receive(uint8_t* Buf,uint16_t *Len)
+{
+    memcpy(receive_buf,Buf,*Len);
+    
+    if(strstr(receive_buf,"set_cq_p = "))
+    {
+        GI_Q.kp = vofa_cmd_parse(receive_buf, "set_cq_p = " );
+    }
+		
+		if(strstr(receive_buf,"set_cq_i = "))
+    {
+        GI_Q.ki = vofa_cmd_parse(receive_buf, "set_cq_i = " );
+    }
+}
 
 
 

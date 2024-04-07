@@ -32,7 +32,7 @@
 #define __CORE_ARMV8MML_H_GENERIC
 
 #include <stdint.h>
-
+#define __FPU_USED 1
 #ifdef __cplusplus
  extern "C" {
 #endif

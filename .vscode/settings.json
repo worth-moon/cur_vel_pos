@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "user_parameters.h": "c"
+        "user_parameters.h": "c",
+        "vofa.h": "c"
     }
 }

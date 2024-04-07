@@ -55,4 +55,5 @@ foc_lab/usbd_cdc_if.o: ..\USB_Device\App\usbd_cdc_if.c \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\Core\Inc\spi.h \
   ..\Core\Inc\main.h ..\Core\Inc\main.h ..\Core\Inc\tim.h \
   ..\Core\Inc\adc.h \
-  ..\Drivers\STM32G4xx_HAL_Driver\Inc\..\..\AS5047P\as5047p.h
+  ..\Drivers\STM32G4xx_HAL_Driver\Inc\..\..\AS5047P\as5047p.h \
+  ..\Core\App\vofa.h

@@ -131,10 +131,10 @@ int main(void)
   {
     
 		//vofa_send_data(0,rx_val.floating_value);
-		vofa_send_data(1,debug_vel_target);
-    vofa_send_data(2,motor.vel);
-		vofa_sendframetail();
-     HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_RESET);
+//		vofa_send_data(1,debug_vel_target);
+//    vofa_send_data(2,motor.vel);
+//		vofa_sendframetail();
+//     HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_RESET);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
