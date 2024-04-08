@@ -35,6 +35,7 @@
 "foc_lab\stm32g4xx_hal_tim.o"
 "foc_lab\stm32g4xx_hal_tim_ex.o"
 "foc_lab\system_stm32g4xx.o"
+"..\Drivers\CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib"
 "foc_lab\as5047p.o"
 "foc_lab\utils.o"
 "foc_lab\svpwm.o"

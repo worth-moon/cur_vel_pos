@@ -3,7 +3,7 @@
 <title>Static Call Graph - [FOC_LAB\FOC_LAB.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image FOC_LAB\FOC_LAB.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6160001: Last Updated: Sun Apr  7 14:53:34 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6160001: Last Updated: Mon Apr  8 21:45:01 2024
 <BR><P>
 <H3>Maximum Stack Usage =        740 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1782,7 +1782,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MT6816_SPI_Get_AngleData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;single_vel_cloop
+<BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;single_vel_cloop
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;position_max
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;current_position
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Voltage_Open_Loop
@@ -2631,7 +2632,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FOC_Run
 </UL>
 
-<P><STRONG><a name="[9b]"></a>main</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, main.o(.text.main))
+<P><STRONG><a name="[9b]"></a>main</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, main.o(.text.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 444 + Unknown Stack Size
 <LI>Call Chain = main &rArr; MX_ADC1_Init &rArr; HAL_ADCEx_InjectedConfigChannel &rArr; LL_ADC_SetOffset
 </UL>
@@ -2647,6 +2648,7 @@ Global Symbols
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FOC_Init
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MT6816_SPI_Signal_Init
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MT6816_Get_AngleData
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>

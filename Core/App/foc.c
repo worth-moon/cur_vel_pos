@@ -116,7 +116,7 @@ void FOC_Init(void)
 
     MATH_EMAVG_F_Init(&math_emavg1);
 
-    motor.FOC_Lab = 4.0f;
+    motor.FOC_Lab = 1;
 
     Pid_Init(&GI_D, debug_p_d, debug_i_d, 0, GI_D_KIS, 1.0f / GI_D_FREQUENCY, GI_D_RANGE);
     Pid_Init(&GI_Q, debug_p_q, debug_i_q, 0, GI_Q_KIS, 1.0f / GI_D_FREQUENCY, GI_Q_RANGE);

@@ -129,7 +129,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    
+    a = MT6816_Get_AngleData();
 		//vofa_send_data(0,rx_val.floating_value);
 //		vofa_send_data(1,debug_vel_target);
 //    vofa_send_data(2,motor.vel);
