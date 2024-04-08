@@ -123,7 +123,7 @@ int main(void)
   //FOC_Init();
 //HAL_Delay(1000);
   /* USER CODE END 2 */
-	SPI1->DR = 0x8300;//
+	SPI1->DR = 0x8300;////
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
