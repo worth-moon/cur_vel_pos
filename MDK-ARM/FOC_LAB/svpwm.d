@@ -39,4 +39,7 @@ foc_lab/svpwm.o: ..\Core\App\svpwm.c ..\Core\Inc\main.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim_ex.h \
   ..\Core\App\svpwm.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
-  ..\Core\App\utils.h
+  ..\Core\App\utils.h ..\Drivers\CMSIS\DSP\Include\arm_math.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\float.h

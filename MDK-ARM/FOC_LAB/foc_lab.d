@@ -41,11 +41,12 @@ foc_lab/foc_lab.o: ..\Core\Src\foc_lab.c ..\Core\Inc\main.h \
   ..\Core\Inc\adc.h ..\Core\Inc\main.h ..\Core\Inc\tim.h \
   ..\Core\Inc\user_parameters.h ..\Core\Src\..\App\foc.h \
   ..\Core\App\svpwm.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
-  ..\Core\App\utils.h ..\Core\App\pid.h ..\Core\App\mt6816.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  ..\Core\App\utils.h ..\Drivers\CMSIS\DSP\Include\arm_math.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h ..\Core\Inc\spi.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\float.h ..\Core\App\pid.h \
+  ..\Core\App\mt6816.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  ..\Core\Inc\spi.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\..\..\AS5047P\as5047p.h \
   ..\Core\Src\..\App\svpwm.h ..\Core\Src\..\App\utils.h \
   ..\Core\Src\..\..\Drivers\AS5047P\as5047p.h

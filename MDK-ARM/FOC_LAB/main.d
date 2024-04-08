@@ -48,6 +48,9 @@ foc_lab/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\..\..\AS5047P\as5047p.h \
   ..\Core\Src\..\App\svpwm.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h ..\Core\App\utils.h \
+  ..\Drivers\CMSIS\DSP\Include\arm_math.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\float.h \
   ..\Core\Src\..\App\utils.h ..\Core\Src\..\App\foc.h \
   ..\Core\App\svpwm.h ..\Core\App\pid.h ..\Core\Inc\user_parameters.h \
   ..\Core\App\mt6816.h C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \

@@ -120,16 +120,16 @@ int main(void)
   MX_TIM2_Init();
   MX_USB_Device_Init();
   /* USER CODE BEGIN 2 */
-  FOC_Init();
-	MT6816_SPI_Signal_Init();
+  //FOC_Init();
 //HAL_Delay(1000);
   /* USER CODE END 2 */
-
+	SPI1->DR = 0x8300;
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    a = MT6816_Get_AngleData();
+    ///ddd
+    //a = enc_mt6816_routine();
 		//vofa_send_data(0,rx_val.floating_value);
 //		vofa_send_data(1,debug_vel_target);
 //    vofa_send_data(2,motor.vel);

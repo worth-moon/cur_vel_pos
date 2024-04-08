@@ -51,7 +51,10 @@ foc_lab/vofa.o: ..\Core\App\vofa.c ..\Core\App\vofa.h ..\Core\Inc\main.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
   ..\Core\App\foc.h ..\Core\App\svpwm.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h ..\Core\App\utils.h \
-  ..\Core\App\pid.h ..\Core\Inc\user_parameters.h ..\Core\App\mt6816.h \
+  ..\Drivers\CMSIS\DSP\Include\arm_math.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\float.h ..\Core\App\pid.h \
+  ..\Core\Inc\user_parameters.h ..\Core\App\mt6816.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h ..\Core\Inc\spi.h \
   ..\Core\Inc\main.h ..\Core\Inc\tim.h ..\Core\Inc\adc.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\..\..\AS5047P\as5047p.h

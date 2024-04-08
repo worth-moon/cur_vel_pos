@@ -48,17 +48,28 @@ I (..\Core\Inc\user_parameters.h)(0x660E6149)
 I (..\Core\Src\..\App\foc.h)(0x6610B274)
 I (..\Core\App\svpwm.h)(0x65CA0DE8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x603507CA)
+<<<<<<< HEAD
+I (..\Core\App\utils.h)(0x6613C87B)
+I (..\Drivers\CMSIS\DSP\Include\arm_math.h)(0x65E85DAB)
+=======
 I (..\Core\App\utils.h)(0x6613F43A)
 I (..\Core\App\pid.h)(0x65CC6978)
 I (..\Core\App\mt6816.h)(0x6613F43A)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
+>>>>>>> 测试spi使能位的误差
 I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x603507D0)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x603507D4)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x603507B6)
+I (..\Core\App\pid.h)(0x65CC6978)
+I (..\Core\App\mt6816.h)(0x6613C87B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
 I (..\Core\Inc\spi.h)(0x65C980A0)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\..\..\AS5047P\as5047p.h)(0x65C9E4A0)
 I (..\Core\Src\..\App\svpwm.h)(0x65CA0DE8)
+<<<<<<< HEAD
+I (..\Core\Src\..\App\utils.h)(0x6613C87B)
+=======
 I (..\Core\Src\..\App\utils.h)(0x6613F43A)
+>>>>>>> 测试spi使能位的误差
 I (..\Core\Src\..\..\Drivers\AS5047P\as5047p.h)(0x65C9E4A0)
 F (..\Core\App\vofa.c)(0x66114852)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/vofa.o -MD)
 I (..\Core\App\vofa.h)(0x661142EB)
@@ -115,22 +126,33 @@ I (..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h)(0x65E85DAD
 I (..\Core\App\foc.h)(0x6610B274)
 I (..\Core\App\svpwm.h)(0x65CA0DE8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x603507CA)
+<<<<<<< HEAD
+I (..\Core\App\utils.h)(0x6613C87B)
+I (..\Drivers\CMSIS\DSP\Include\arm_math.h)(0x65E85DAB)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x603507B6)
+I (..\Core\App\pid.h)(0x65CC6978)
+I (..\Core\Inc\user_parameters.h)(0x660E6149)
+I (..\Core\App\mt6816.h)(0x6613C87B)
+=======
 I (..\Core\App\utils.h)(0x6613F43A)
 I (..\Core\App\pid.h)(0x65CC6978)
 I (..\Core\Inc\user_parameters.h)(0x660E6149)
 I (..\Core\App\mt6816.h)(0x6613F43A)
+>>>>>>> 测试spi使能位的误差
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
 I (..\Core\Inc\spi.h)(0x65C980A0)
 I (..\Core\Inc\tim.h)(0x65CE016E)
 I (..\Core\Inc\adc.h)(0x65C9D6B6)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\..\..\AS5047P\as5047p.h)(0x65C9E4A0)
 F (..\Core\App\vofa.h)(0x661142EB)()
+<<<<<<< HEAD
+F (..\Core\App\mt6816.c)(0x6613D2F5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/mt6816.o -MD)
+I (..\Core\App\mt6816.h)(0x6613C87B)
+=======
 F (..\Core\App\mt6816.c)(0x6613F43A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/mt6816.o -MD)
 I (..\Core\App\mt6816.h)(0x6613F43A)
+>>>>>>> 测试spi使能位的误差
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
-I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x603507D0)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x603507D4)
 I (..\Core\Inc\spi.h)(0x65C980A0)
 I (..\Core\Inc\main.h)(0x66112D8D)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h)(0x65E85DC9)
@@ -172,8 +194,14 @@ I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_spi.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_spi_ex.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim_ex.h)(0x65E85DC9)
+<<<<<<< HEAD
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x603507D4)
+F (..\Core\App\mt6816.h)(0x6613C87B)()
+F (../Core/Src/main.c)(0x6613D2F5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/main.o -MD)
+=======
 F (..\Core\App\mt6816.h)(0x6613F43A)()
 F (../Core/Src/main.c)(0x6613F45D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/main.o -MD)
+>>>>>>> 测试spi使能位的误差
 I (..\Core\Inc\main.h)(0x66112D8D)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h)(0x65E85DC9)
 I (..\Core\Inc\stm32g4xx_hal_conf.h)(0x66112D8D)
@@ -228,13 +256,24 @@ I (..\Core\Inc\gpio.h)(0x65C9809E)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\..\..\AS5047P\as5047p.h)(0x65C9E4A0)
 I (..\Core\Src\..\App\svpwm.h)(0x65CA0DE8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x603507CA)
+<<<<<<< HEAD
+I (..\Core\App\utils.h)(0x6613C87B)
+I (..\Drivers\CMSIS\DSP\Include\arm_math.h)(0x65E85DAB)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x603507B6)
+I (..\Core\Src\..\App\utils.h)(0x6613C87B)
+=======
 I (..\Core\App\utils.h)(0x6613F43A)
 I (..\Core\Src\..\App\utils.h)(0x6613F43A)
+>>>>>>> 测试spi使能位的误差
 I (..\Core\Src\..\App\foc.h)(0x6610B274)
 I (..\Core\App\svpwm.h)(0x65CA0DE8)
 I (..\Core\App\pid.h)(0x65CC6978)
 I (..\Core\Inc\user_parameters.h)(0x660E6149)
+<<<<<<< HEAD
+I (..\Core\App\mt6816.h)(0x6613C87B)
+=======
 I (..\Core\App\mt6816.h)(0x6613F43A)
+>>>>>>> 测试spi使能位的误差
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
 I (..\Core\Src\..\App\pid.h)(0x65CC6978)
 I (..\Core\App\vofa.h)(0x661142EB)
@@ -412,7 +451,11 @@ I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_spi.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_spi_ex.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim_ex.h)(0x65E85DC9)
+<<<<<<< HEAD
+F (../Core/Src/tim.c)(0x6613C87B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/tim.o -MD)
+=======
 F (../Core/Src/tim.c)(0x6613F43A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/tim.o -MD)
+>>>>>>> 测试spi使能位的误差
 I (..\Core\Inc\tim.h)(0x65CE016E)
 I (..\Core\Inc\main.h)(0x66112D8D)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h)(0x65E85DC9)
@@ -1544,8 +1587,16 @@ I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_spi.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_spi_ex.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim_ex.h)(0x65E85DC9)
+<<<<<<< HEAD
+I (..\Core\App\utils.h)(0x6613C87B)
+I (..\Drivers\CMSIS\DSP\Include\arm_math.h)(0x65E85DAB)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x603507CA)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x603507B6)
+=======
 I (..\Core\App\utils.h)(0x6613F43A)
 I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x603507CA)
+>>>>>>> 测试spi使能位的误差
 F (..\Core\App\svpwm.c)(0x65CDBA0C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/svpwm.o -MD)
 I (..\Core\Inc\main.h)(0x66112D8D)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h)(0x65E85DC9)
@@ -1589,8 +1640,16 @@ I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim.h)(0x65E85DC9)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim_ex.h)(0x65E85DC9)
 I (..\Core\App\svpwm.h)(0x65CA0DE8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x603507CA)
+<<<<<<< HEAD
+I (..\Core\App\utils.h)(0x6613C87B)
+I (..\Drivers\CMSIS\DSP\Include\arm_math.h)(0x65E85DAB)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x603507B6)
+F (..\Core\App\foc.c)(0x6613C87B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/foc.o -MD)
+=======
 I (..\Core\App\utils.h)(0x6613F43A)
 F (..\Core\App\foc.c)(0x6613F46C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../USB_Device/App -I ../USB_Device/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Core/App -I ../Drivers/CMSIS/DSP/Include-I./RTE/_FOC_LAB-IC:/Users/86156/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/86156/AppData/Local/Arm/Packs/Keil/STM32G4xx_DFP/1.5.0/Drivers/CMSIS/Device/ST/STM32G4xx/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx -DSTM32G474xx -DARM_MATH_DSP -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o foc_lab/foc.o -MD)
+>>>>>>> 测试spi使能位的误差
 I (..\Core\Inc\main.h)(0x66112D8D)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h)(0x65E85DC9)
 I (..\Core\Inc\stm32g4xx_hal_conf.h)(0x66112D8D)
@@ -1634,14 +1693,21 @@ I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim_ex.h)(0x65E85DC9)
 I (..\Core\App\foc.h)(0x6610B274)
 I (..\Core\App\svpwm.h)(0x65CA0DE8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x603507CA)
+<<<<<<< HEAD
+I (..\Core\App\utils.h)(0x6613C87B)
+I (..\Drivers\CMSIS\DSP\Include\arm_math.h)(0x65E85DAB)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x603507B6)
+I (..\Core\App\pid.h)(0x65CC6978)
+I (..\Core\Inc\user_parameters.h)(0x660E6149)
+I (..\Core\App\mt6816.h)(0x6613C87B)
+=======
 I (..\Core\App\utils.h)(0x6613F43A)
 I (..\Core\App\pid.h)(0x65CC6978)
 I (..\Core\Inc\user_parameters.h)(0x660E6149)
 I (..\Core\App\mt6816.h)(0x6613F43A)
+>>>>>>> 测试spi使能位的误差
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
-I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x603507D0)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x603507D0)
-I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x603507D4)
 I (..\Core\Inc\spi.h)(0x65C980A0)
 I (..\Core\Inc\tim.h)(0x65CE016E)
 I (..\Core\Inc\adc.h)(0x65C9D6B6)
@@ -1792,10 +1858,19 @@ I (..\USB_Device\App\usbd_cdc_if.h)(0x6610BEB7)
 I (..\Core\App\foc.h)(0x6610B274)
 I (..\Core\App\svpwm.h)(0x65CA0DE8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x603507CA)
+<<<<<<< HEAD
+I (..\Core\App\utils.h)(0x6613C87B)
+I (..\Drivers\CMSIS\DSP\Include\arm_math.h)(0x65E85DAB)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x603507B6)
+I (..\Core\App\pid.h)(0x65CC6978)
+I (..\Core\Inc\user_parameters.h)(0x660E6149)
+I (..\Core\App\mt6816.h)(0x6613C87B)
+=======
 I (..\Core\App\utils.h)(0x6613F43A)
 I (..\Core\App\pid.h)(0x65CC6978)
 I (..\Core\Inc\user_parameters.h)(0x660E6149)
 I (..\Core\App\mt6816.h)(0x6613F43A)
+>>>>>>> 测试spi使能位的误差
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
 I (..\Core\Inc\spi.h)(0x65C980A0)
 I (..\Core\Inc\main.h)(0x66112D8D)
@@ -1904,10 +1979,19 @@ I (..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h)(0x65E85DAD
 I (..\Core\App\foc.h)(0x6610B274)
 I (..\Core\App\svpwm.h)(0x65CA0DE8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x603507CA)
+<<<<<<< HEAD
+I (..\Core\App\utils.h)(0x6613C87B)
+I (..\Drivers\CMSIS\DSP\Include\arm_math.h)(0x65E85DAB)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x603507B6)
+I (..\Core\App\pid.h)(0x65CC6978)
+I (..\Core\Inc\user_parameters.h)(0x660E6149)
+I (..\Core\App\mt6816.h)(0x6613C87B)
+=======
 I (..\Core\App\utils.h)(0x6613F43A)
 I (..\Core\App\pid.h)(0x65CC6978)
 I (..\Core\Inc\user_parameters.h)(0x660E6149)
 I (..\Core\App\mt6816.h)(0x6613F43A)
+>>>>>>> 测试spi使能位的误差
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x603507CA)
 I (..\Core\Inc\spi.h)(0x65C980A0)
 I (..\Core\Inc\main.h)(0x66112D8D)

@@ -1,6 +1,6 @@
 #ifndef _UTILS_H
 #define _UTILS_H
-#include "math.h"
+#include "arm_math.h"
 #define MATH_SQRT3     (1.7320508075688772935274463415059f)
 #define MATH_SQRT3_2   (0.86602540378443864676372317075294f)
 #define MATH_PI (3.14159265f)
@@ -41,15 +41,17 @@ static inline void Clarke_Run(MATH_vec2* pInVec, MATH_vec2* pOutVec)
 
 static inline void Park_Run(MATH_vec2* pInVec, MATH_vec2* pOutVec, float theta)
 {
-    pOutVec->value[0] = cosf(theta) * pInVec->value[0] + sinf(theta) * pInVec->value[1];
-    pOutVec->value[1] = -sinf(theta) * pInVec->value[0] + cosf(theta) * pInVec->value[1];
+    pOutVec->value[0] = arm_cos_f32(theta) * pInVec->value[0] + arm_sin_f32(theta) * pInVec->value[1];
+    pOutVec->value[1] = -arm_sin_f32(theta) * pInVec->value[0] + arm_cos_f32(theta) * pInVec->value[1];
 }
 
 static inline void Inv_Park_Run(MATH_vec2* pInVec, MATH_vec2* pOutVec, float theta)
 {
-    pOutVec->value[0] = cosf(theta) * pInVec->value[0] - sinf(theta) * pInVec->value[1];
-    pOutVec->value[1] = sinf(theta) * pInVec->value[0] + cosf(theta) * pInVec->value[1];
+    pOutVec->value[0] = arm_cos_f32(theta) * pInVec->value[0] - arm_sin_f32(theta) * pInVec->value[1];
+    pOutVec->value[1] = arm_sin_f32(theta) * pInVec->value[0] + arm_cos_f32(theta) * pInVec->value[1];
 }
+
+
 
 static inline float Mag_To_Electrical(float angle, float pole_pairs)
 {

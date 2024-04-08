@@ -1,59 +1,90 @@
 #include "mt6816.h"
 #include "stdio.h"
-
-MT6816_SPI_Signal_Typedef mt6816_spi;
-
-void MT6816_SPI_Signal_Init(void) 
+/**
+ * @brief mt6816奇偶验证代码
+ * @param x: 数字
+ */
+static bool mt6816_check_parity(uint16_t x) 
 {
-	mt6816_spi.sample_data = 0;
-	mt6816_spi.angle = 0;
+    x ^= x >> 8;
+    x ^= x >> 4;
+    x ^= x >> 2;
+    x ^= x >> 1;
+    return ((x) & 1);
 }
 
-void MT6816_SPI_Get_AngleData(void) {
-	uint16_t data_t[2];
-	uint16_t data_r[2];
-	uint8_t h_count;
-	data_t[0] = (0x80 | 0x03) << 8;
-	data_t[1] = (0x80 | 0x04) << 8;
-	for (uint8_t i = 0; i < 3; i++) 
-	{
-		//璇诲彇SPI鏁版嵁
-		MT6816_SPI_CS_L();
-		HAL_SPI_TransmitReceive(&MT6816_SPI_Get_HSPI, (uint8_t*) &data_t[0], (uint8_t*) &data_r[0], 1, 200);
-		MT6816_SPI_CS_H();
-		MT6816_SPI_CS_L();
-		HAL_SPI_TransmitReceive(&MT6816_SPI_Get_HSPI, (uint8_t*) &data_t[1], (uint8_t*) &data_r[1], 1, 200);
-		MT6816_SPI_CS_H();
-		mt6816_spi.sample_data = ((data_r[0] & 0x00FF) << 8) | (data_r[1] & 0x00FF);
-		//濂囧伓鏍￠獙
-		h_count = 0;
-		for (uint8_t j = 0; j < 16; j++) 
-		{
-			if (mt6816_spi.sample_data & (0x0001 << j))
-				h_count++;
-		}
-		if (h_count & 0x01) 
-		{
-			mt6816_spi.pc_flag = false;
-		} 
-		else 
-		{
-			mt6816_spi.pc_flag = true;
-			break;
-		}
-	}
-	if (mt6816_spi.pc_flag) 
-	{
-		mt6816_spi.angle = mt6816_spi.sample_data >> 2;
-		mt6816_spi.no_mag_flag = (bool) (mt6816_spi.sample_data & (0x0001 << 1));
-	}
+
+/**
+ * @brief SPI传输接收数据
+ * @param SPIx：SPI接口指针
+ * @param frame：要发送的数据帧
+ */
+static uint16_t spi_transmit_receive(SPI_TypeDef *SPIx, uint16_t frame) 
+{
+    // 用于少量数据的
+    SPIx->DR = frame;
+		//HAL_Delay(1);
+    while ((SPIx->SR & SPI_SR_RXNE) == 0);
+    return SPIx->DR;
 }
 
-MT6816_Typedef mt6816;
-
-float MT6816_Get_AngleData() 
+/**
+ * @brief MT6816专用延时代码
+ */
+static void spi_bb_delay(void) 
 {
-	MT6816_SPI_Get_AngleData();
-	mt6816.angle_data = mt6816_spi.angle;
-	return mt6816.angle_data;
+	HAL_Delay(1);
+    // ~1500 ns long
+//    for (volatile int i = 0; i < 6; i++) 
+//	{
+//        __NOP();//500ns
+//    }
+}
+
+void SPI_BEGIN()
+{
+	HAL_GPIO_WritePin(CSN_GPIO_Port,CSN_Pin,GPIO_PIN_RESET);
+}
+void SPI_END()
+{
+	HAL_GPIO_WritePin(CSN_GPIO_Port,CSN_Pin,GPIO_PIN_SET);
+}
+/**
+ * @brief mt6816轮训函数(执行间隔20K)
+ * @param cfg: 句柄
+ */
+uint16_t enc_mt6816_routine(void) 
+{
+    uint16_t pos;
+	static uint16_t last_pos;
+    uint16_t reg_data_03;
+    uint16_t reg_data_04;
+    uint16_t reg_addr_03 = 0x8300;
+    uint16_t reg_addr_04 = 0x8400;
+
+    SPI_BEGIN();
+    spi_bb_delay();
+    reg_data_03 = spi_transmit_receive(SPI1, reg_addr_03);
+    spi_bb_delay();
+    SPI_END();
+    spi_bb_delay();
+
+    SPI_BEGIN();
+    spi_bb_delay();
+    reg_data_04 = spi_transmit_receive(SPI1, reg_addr_04);
+    spi_bb_delay();
+    SPI_END();
+    spi_bb_delay();
+
+    pos = (reg_data_03 << 8) | reg_data_04;
+
+	if (mt6816_check_parity(pos))
+	{
+		last_pos = pos;
+		return pos;
+	}
+	else
+	{
+		return last_pos;
+	}
 }

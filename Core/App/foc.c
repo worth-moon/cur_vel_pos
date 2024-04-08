@@ -120,20 +120,33 @@ void FOC_Init(void)
 
     Pid_Init(&GI_D, debug_p_d, debug_i_d, 0, GI_D_KIS, 1.0f / GI_D_FREQUENCY, GI_D_RANGE);
     Pid_Init(&GI_Q, debug_p_q, debug_i_q, 0, GI_Q_KIS, 1.0f / GI_D_FREQUENCY, GI_Q_RANGE);
-    //Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 25000.0f, 0.4f);
+    Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 25000.0f, 3.0f);
     //Pid_Init(&GPOS, debug_position_p, debug_position_i, 0, GI_Q_KIS, 1.0f / 6250.0f, 0.4f);
     Pid_Init(&GVEL, 0.005f, 100.0f, 0, GVEL_KIS, 1.0f / 12500.0f, 1.0f);
 }
 
 void align(void)
 {
+    voltage.Vd = 1.0f;
+    voltage.Vq = 0.0f;
 
+    V_d_q.value[0] = voltage.Vd;
+    V_d_q.value[1] = voltage.Vq;
+
+    Inv_Park_Run(&V_d_q, &V_alpha_beta, 0);
+
+    voltage.Valpha = V_alpha_beta.value[0];
+    voltage.Vbeta = V_alpha_beta.value[1];
+
+    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
+
+    PWM_Set();
 }
 
 void Drag_VF_Mode(void)
 {
     voltage.Vd = 0.0f;
-    voltage.Vq = 1.0f;
+    voltage.Vq = 0.5f;
 
     V_d_q.value[0] = voltage.Vd;
     V_d_q.value[1] = voltage.Vq;
@@ -203,8 +216,14 @@ void Voltage_Open_Loop(void)
     V_d_q.value[0] = voltage.Vd;
     V_d_q.value[1] = voltage.Vq;
 
-
-    motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
+		float cur_angle = enc_mt6816_routine()-625;
+//		if(cur_angle<0)
+//		{
+//			cur_angle +=16384;
+//		}
+//		else if(cur_angle>16384)
+//			cur_angle -= 16384;
+    motor.mag_angle = (float)(cur_angle * MATH_2PI / 16384.0f);
     motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
 
     Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
@@ -222,7 +241,7 @@ void Current_Closed_Loop(void)
 {
     Current_Get(&current);
 		HAL_GPIO_WritePin(CH2_GPIO_Port,CH2_Pin,1);
-    motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
+    motor.mag_angle = (float)(enc_mt6816_routine() * MATH_2PI / 16384.0f);
     motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
 		HAL_GPIO_WritePin(CH2_GPIO_Port,CH2_Pin,0);
     I_a_b.value[0] = current.Ia;
@@ -256,173 +275,174 @@ void Current_Closed_Loop(void)
     SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
     PWM_Set();
 }
-void Velocity_Closed_Loop(void)
-{
-    static uint8_t vel_cnt = 0;
-    Current_Get(&current);
-    motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
-    motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
 
-    I_a_b.value[0] = current.Ia;
-    I_a_b.value[1] = current.Ib;
+//void Velocity_Closed_Loop(void)
+//{
+//    static uint8_t vel_cnt = 0;
+//    Current_Get(&current);
+//    motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
+//    motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
 
-    Clarke_Run(&I_a_b, &I_alpha_beta);
+//    I_a_b.value[0] = current.Ia;
+//    I_a_b.value[1] = current.Ib;
 
-    current.Ialpha = I_alpha_beta.value[0];
-    current.Ibeta = I_alpha_beta.value[1];
+//    Clarke_Run(&I_a_b, &I_alpha_beta);
 
-    Park_Run(&I_alpha_beta, &I_d_q, motor.elec_angle);
+//    current.Ialpha = I_alpha_beta.value[0];
+//    current.Ibeta = I_alpha_beta.value[1];
 
-    current.Id = I_d_q.value[0];
-    current.Iq = I_d_q.value[1];
+//    Park_Run(&I_alpha_beta, &I_d_q, motor.elec_angle);
 
-     motor.cnt = vel_cnt;
-     //Frequency 5000Hz
-    vel_cnt++;
-    if (vel_cnt >= 2)
-    {
-        vel_cnt = 0;
-        Velocity_Get(&motor, 1.0f / GVEL_FREQUENCY);
+//    current.Id = I_d_q.value[0];
+//    current.Iq = I_d_q.value[1];
 
-        math_emavg1.In = motor.vel;
-        math_emavg1.Multiplier = MATH_LPF_COEFF;
-        MATH_EMAVG_F_Run(&math_emavg1);
-        motor.vel_filtered = math_emavg1.Out;
+//     motor.cnt = vel_cnt;
+//     //Frequency 5000Hz
+//    vel_cnt++;
+//    if (vel_cnt >= 2)
+//    {
+//        vel_cnt = 0;
+//        Velocity_Get(&motor, 1.0f / GVEL_FREQUENCY);
 
-        motor.vel_ref = debug_vel_target;
-        current.Id_ref = 0.0f;
-        current.Iq_ref = Pid_Cal(&GVEL, motor.vel_ref, motor.vel_filtered);
-    }
+//        math_emavg1.In = motor.vel;
+//        math_emavg1.Multiplier = MATH_LPF_COEFF;
+//        MATH_EMAVG_F_Run(&math_emavg1);
+//        motor.vel_filtered = math_emavg1.Out;
 
-    voltage.Vd = Pid_Cal(&GI_D, current.Id_ref, current.Id);
-    voltage.Vq = Pid_Cal(&GI_Q, current.Iq_ref, current.Iq);
+//        motor.vel_ref = debug_vel_target;
+//        current.Id_ref = 0.0f;
+//        current.Iq_ref = Pid_Cal(&GVEL, motor.vel_ref, motor.vel_filtered);
+//    }
 
-    V_d_q.value[0] = voltage.Vd;
-    V_d_q.value[1] = voltage.Vq;
+//    voltage.Vd = Pid_Cal(&GI_D, current.Id_ref, current.Id);
+//    voltage.Vq = Pid_Cal(&GI_Q, current.Iq_ref, current.Iq);
 
-    Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
+//    V_d_q.value[0] = voltage.Vd;
+//    V_d_q.value[1] = voltage.Vq;
 
-
-    voltage.Valpha = V_alpha_beta.value[0];
-    voltage.Vbeta = V_alpha_beta.value[1];
-
-    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
-    PWM_Set();
-
-}
-
-//0.005 100 6.125K
-void single_vel_cloop(void)
-{
-    static uint8_t vel_cnt = 0;
-    vel_cnt++;
-    if(vel_cnt >= 5)
-    {
-        vel_cnt = 0;
-        motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
-        motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
-        Velocity_Get(&motor, 1.0f / 5000.0f);
-
-        math_emavg1.In = motor.vel;
-        math_emavg1.Multiplier = debug_vel_lb;
-        MATH_EMAVG_F_Run(&math_emavg1);
-        motor.vel_filtered = math_emavg1.Out;
-
-        voltage.Vd = 0;
-        voltage.Vq = Pid_Cal(&GVEL, debug_vel_target, motor.vel_filtered);
-
-        V_d_q.value[0] = voltage.Vd;
-        V_d_q.value[1] = voltage.Vq;
-        Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
-        voltage.Valpha = V_alpha_beta.value[0];
-        voltage.Vbeta = V_alpha_beta.value[1];
-
-        SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
-        PWM_Set();
-    }
-}
-//单位置环已调好,最优参数在100和120之间（二选一）
-void position_max(void)
-{
-    motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
-    motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
-
-    static float last_angle = 10086;
-    if(last_angle - motor.mag_angle>4.0f&&last_angle!=10086)
-        current_count++;
-    if (last_angle - motor.mag_angle < -4.0f && last_angle != 10086)
-        current_count--;
-
-     act = current_count * 6.28f + motor.mag_angle;
-    last_angle = motor.mag_angle;
-    voltage.Vd = 0.0f;
-    voltage.Vq = Pid_Cal(&GPOS, debug_position_target, act);
-    V_d_q.value[0] = voltage.Vd;
-    V_d_q.value[1] = voltage.Vq;
-
-    Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
-
-    voltage.Valpha = V_alpha_beta.value[0];
-    voltage.Vbeta = V_alpha_beta.value[1];
-
-    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, 24.4f);
-
-    PWM_Set();
-}
+//    Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
 
 
+//    voltage.Valpha = V_alpha_beta.value[0];
+//    voltage.Vbeta = V_alpha_beta.value[1];
 
-void current_position(void)
-{
-    Current_Get(&current);
-    motor.mag_angle = (float)((MT6816_Get_AngleData()+207) * MATH_2PI / 16384.0f);
-    motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
-		
-		static float last_angle = 0;
-		if(last_angle - motor.mag_angle > 3.14f)
-				current_count++;
-		if (last_angle - motor.mag_angle < -3.14f)
-				current_count--;
-		 last_angle = motor.mag_angle;
-	
-    I_a_b.value[0] = current.Ia;
-    I_a_b.value[1] = current.Ib;
+//    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
+//    PWM_Set();
 
-    Clarke_Run(&I_a_b, &I_alpha_beta);
+//}
 
-    current.Ialpha = I_alpha_beta.value[0];
-    current.Ibeta = I_alpha_beta.value[1];
+////0.005 100 6.125K
+//void single_vel_cloop(void)
+//{
+//    static uint8_t vel_cnt = 0;
+//    vel_cnt++;
+//    if(vel_cnt >= 5)
+//    {
+//        vel_cnt = 0;
+//        motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
+//        motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
+//        Velocity_Get(&motor, 1.0f / 5000.0f);
 
-    Park_Run(&I_alpha_beta, &I_d_q, motor.elec_angle);
+//        math_emavg1.In = motor.vel;
+//        math_emavg1.Multiplier = debug_vel_lb;
+//        MATH_EMAVG_F_Run(&math_emavg1);
+//        motor.vel_filtered = math_emavg1.Out;
 
-    current.Id = I_d_q.value[0];
-    current.Iq = I_d_q.value[1];
+//        voltage.Vd = 0;
+//        voltage.Vq = Pid_Cal(&GVEL, debug_vel_target, motor.vel_filtered);
 
-    static uint8_t pos_cnt = 0;
-    pos_cnt++;
-    if(pos_cnt >= 4)
-    {
-        pos_cnt = 0;
-        act = current_count * 6.28f + motor.mag_angle;
-        current.Id_ref = debug_target_d;
-		current.Iq_ref = Pid_Cal(&GPOS, debug_position_target, act);
-    }
+//        V_d_q.value[0] = voltage.Vd;
+//        V_d_q.value[1] = voltage.Vq;
+//        Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
+//        voltage.Valpha = V_alpha_beta.value[0];
+//        voltage.Vbeta = V_alpha_beta.value[1];
 
-    voltage.Vd = Pid_Cal(&GI_D, current.Id_ref, current.Id);
-    voltage.Vq = Pid_Cal(&GI_Q, current.Iq_ref, current.Iq);
+//        SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
+//        PWM_Set();
+//    }
+//}
+////单位置环已调好,最优参数在100和120之间（二选一）
+//void position_max(void)
+//{
+//    motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
+//    motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
 
-    V_d_q.value[0] = voltage.Vd;
-    V_d_q.value[1] = voltage.Vq;
+//    static float last_angle = 10086;
+//    if(last_angle - motor.mag_angle>4.0f&&last_angle!=10086)
+//        current_count++;
+//    if (last_angle - motor.mag_angle < -4.0f && last_angle != 10086)
+//        current_count--;
 
-    Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
+//     act = current_count * 6.28f + motor.mag_angle;
+//    last_angle = motor.mag_angle;
+//    voltage.Vd = 0.0f;
+//    voltage.Vq = Pid_Cal(&GPOS, debug_position_target, act);
+//    V_d_q.value[0] = voltage.Vd;
+//    V_d_q.value[1] = voltage.Vq;
+
+//    Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
+
+//    voltage.Valpha = V_alpha_beta.value[0];
+//    voltage.Vbeta = V_alpha_beta.value[1];
+
+//    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, 24.4f);
+
+//    PWM_Set();
+//}
 
 
-    voltage.Valpha = V_alpha_beta.value[0];
-    voltage.Vbeta = V_alpha_beta.value[1];
 
-    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
-    PWM_Set();                                                                                                                                                                                                                                                                                                      
-}
+//void current_position(void)
+//{
+//    Current_Get(&current);
+//    motor.mag_angle = (float)((MT6816_Get_AngleData()+207) * MATH_2PI / 16384.0f);
+//    motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
+//		
+//		static float last_angle = 0;
+//		if(last_angle - motor.mag_angle > 3.14f)
+//				current_count++;
+//		if (last_angle - motor.mag_angle < -3.14f)
+//				current_count--;
+//		 last_angle = motor.mag_angle;
+//	
+//    I_a_b.value[0] = current.Ia;
+//    I_a_b.value[1] = current.Ib;
+
+//    Clarke_Run(&I_a_b, &I_alpha_beta);
+
+//    current.Ialpha = I_alpha_beta.value[0];
+//    current.Ibeta = I_alpha_beta.value[1];
+
+//    Park_Run(&I_alpha_beta, &I_d_q, motor.elec_angle);
+
+//    current.Id = I_d_q.value[0];
+//    current.Iq = I_d_q.value[1];
+
+//    static uint8_t pos_cnt = 0;
+//    pos_cnt++;
+//    if(pos_cnt >= 4)
+//    {
+//        pos_cnt = 0;
+//        act = current_count * 6.28f + motor.mag_angle;
+//        current.Id_ref = debug_target_d;
+//		current.Iq_ref = Pid_Cal(&GPOS, debug_position_target, act);
+//    }
+
+//    voltage.Vd = Pid_Cal(&GI_D, current.Id_ref, current.Id);
+//    voltage.Vq = Pid_Cal(&GI_Q, current.Iq_ref, current.Iq);
+
+//    V_d_q.value[0] = voltage.Vd;
+//    V_d_q.value[1] = voltage.Vq;
+
+//    Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
+
+
+//    voltage.Valpha = V_alpha_beta.value[0];
+//    voltage.Vbeta = V_alpha_beta.value[1];
+
+//    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
+//    PWM_Set();                                                                                                                                                                                                                                                                                                      
+//}
 
 void PWM_Set(void)
 {
@@ -438,72 +458,72 @@ void PWM_Stop(void)
     TIM1->CCR3 = 0;
 }
 
-//电流环作为最内环，执行次数最多，速度环作为中间环，次之；位置环作为最外环，因此执行次数最少
-void cur_vel_pos(void)
-{
-    Current_Get(&current);
-    motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
-    motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
+////电流环作为最内环，执行次数最多，速度环作为中间环，次之；位置环作为最外环，因此执行次数最少
+//void cur_vel_pos(void)
+//{
+//    Current_Get(&current);
+//    motor.mag_angle = (float)(MT6816_Get_AngleData() * MATH_2PI / 16384.0f);
+//    motor.elec_angle = Mag_To_Electrical(motor.mag_angle, NUM_OF_POLE_PAIRS);
 
-    static float last_angle = 0;
-    if(last_angle - motor.mag_angle > 3.14f)
-            current_count++;
-    if (last_angle - motor.mag_angle < -3.14f)
-            current_count--;
-    last_angle = motor.mag_angle;
+//    static float last_angle = 0;
+//    if(last_angle - motor.mag_angle > 3.14f)
+//            current_count++;
+//    if (last_angle - motor.mag_angle < -3.14f)
+//            current_count--;
+//    last_angle = motor.mag_angle;
 
-    I_a_b.value[0] = current.Ia;
-    I_a_b.value[1] = current.Ib;
+//    I_a_b.value[0] = current.Ia;
+//    I_a_b.value[1] = current.Ib;
 
-    Clarke_Run(&I_a_b, &I_alpha_beta);
+//    Clarke_Run(&I_a_b, &I_alpha_beta);
 
-    current.Ialpha = I_alpha_beta.value[0];
-    current.Ibeta = I_alpha_beta.value[1];
+//    current.Ialpha = I_alpha_beta.value[0];
+//    current.Ibeta = I_alpha_beta.value[1];
 
-    Park_Run(&I_alpha_beta, &I_d_q, motor.elec_angle);
+//    Park_Run(&I_alpha_beta, &I_d_q, motor.elec_angle);
 
-    static uint8_t vel_cnt,pos_cnt;
-    vel_cnt++;
-    pos_cnt++;
+//    static uint8_t vel_cnt,pos_cnt;
+//    vel_cnt++;
+//    pos_cnt++;
 
-    if(pos_cnt>=4)
-    {
-        pos_cnt = 0;
-        act = current_count * 6.28f + motor.mag_angle;
-		debug_vel_target = Pid_Cal(&GPOS, debug_position_target, act);
-    }
+//    if(pos_cnt>=4)
+//    {
+//        pos_cnt = 0;
+//        act = current_count * 6.28f + motor.mag_angle;
+//		debug_vel_target = Pid_Cal(&GPOS, debug_position_target, act);
+//    }
 
-    if(vel_cnt>=2)
-    {
-        Velocity_Get(&motor, 1.0f / 12500.0f);
+//    if(vel_cnt>=2)
+//    {
+//        Velocity_Get(&motor, 1.0f / 12500.0f);
 
-        math_emavg1.In = motor.vel;
-        math_emavg1.Multiplier = debug_vel_lb;
-        MATH_EMAVG_F_Run(&math_emavg1);
-        motor.vel_filtered = math_emavg1.Out;
-        debug_target_q = Pid_Cal(&GVEL, debug_vel_target, motor.vel_filtered);
-    }
-    current.Id = I_d_q.value[0];
-    current.Iq = I_d_q.value[1];
+//        math_emavg1.In = motor.vel;
+//        math_emavg1.Multiplier = debug_vel_lb;
+//        MATH_EMAVG_F_Run(&math_emavg1);
+//        motor.vel_filtered = math_emavg1.Out;
+//        debug_target_q = Pid_Cal(&GVEL, debug_vel_target, motor.vel_filtered);
+//    }
+//    current.Id = I_d_q.value[0];
+//    current.Iq = I_d_q.value[1];
 
-    current.Id_ref = debug_target_d;
-    current.Iq_ref = debug_target_q;
+//    current.Id_ref = debug_target_d;
+//    current.Iq_ref = debug_target_q;
 
-    voltage.Vd = Pid_Cal(&GI_D, current.Id_ref, current.Id);
-    voltage.Vq = Pid_Cal(&GI_Q, current.Iq_ref, current.Iq);
+//    voltage.Vd = Pid_Cal(&GI_D, current.Id_ref, current.Id);
+//    voltage.Vq = Pid_Cal(&GI_Q, current.Iq_ref, current.Iq);
 
-    V_d_q.value[0] = voltage.Vd;
-    V_d_q.value[1] = voltage.Vq;
+//    V_d_q.value[0] = voltage.Vd;
+//    V_d_q.value[1] = voltage.Vq;
 
-    Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
+//    Inv_Park_Run(&V_d_q, &V_alpha_beta, motor.elec_angle);
 
 
-    voltage.Valpha = V_alpha_beta.value[0];
-    voltage.Vbeta = V_alpha_beta.value[1];
+//    voltage.Valpha = V_alpha_beta.value[0];
+//    voltage.Vbeta = V_alpha_beta.value[1];
 
-    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
-    PWM_Set();
-}
+//    SVPWM_Run(&SVPWM, voltage.Valpha, voltage.Vbeta, VBUS);
+//    PWM_Set();
+//}
 //TODO:挖一个大坑，接入无感部分
 void FOC_Run(void)
 {
@@ -521,22 +541,23 @@ void FOC_Run(void)
     case LAB_4:
         Current_Closed_Loop();
         break;
-    case LAB_5:
-        position_max();
-        break;
-    case LAB_6:
-        single_vel_cloop();
-        break;
-    case LAB_7:
-        current_position();
-        break;
-    case LAB_8:
-        Velocity_Closed_Loop();
-        break;
-    case LAB_9:
+//    case LAB_5:
+//        position_max();
+//        break;
+//    case LAB_6:
+//        single_vel_cloop();
+//        break;
+//    case LAB_7:
+//        current_position();
+//        break;
+//    case LAB_8:
+//        Velocity_Closed_Loop();
+//        break;
+//    case LAB_9:
         
-        break;
+ //       break;
     case LAB_10:
+				align();
         break;
     default:
         break;
